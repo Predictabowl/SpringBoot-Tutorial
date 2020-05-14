@@ -10,8 +10,8 @@ public class GreetingsConfig {
 	 * work if the name is changed
 	 */
 	@Bean
-	public GreetingsService greetingsService() {
-		return new GreetingsServiceAlternateImpl();
+	public GreetingsService greetingsService(GreetingsPreProcessor preProcessor) {
+		return new GreetingsServiceDefaultImpl(preProcessor);
 	}
 
 }
