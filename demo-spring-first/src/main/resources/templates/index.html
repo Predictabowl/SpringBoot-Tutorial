@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Hello Page</title>
+	<link rel="stylesheet" th:ref="@{/css/main.css}" href="../../css/main.css"/>
+</head>
+<body>
+	<h1> Spring Boot simple example</h1>
+	<h2>
+		<span th:text="'Hello '+ ${message}"></span>
+	</h2>
+</body>
+</html>
