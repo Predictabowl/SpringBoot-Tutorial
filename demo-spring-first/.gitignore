@@ -8,10 +8,10 @@ target/
 # The following files are for eclipse projects, since those are ignore Eclipse metadata is not saved 
 # so is necessary to import the maven project in Eclipse when cloning from git
 .apt_generated
-.classpath
+#.classpath
 .factorypath
-.project
-.settings
+#.project
+#.settings
 .springBeans
 .sts4-cache
 
