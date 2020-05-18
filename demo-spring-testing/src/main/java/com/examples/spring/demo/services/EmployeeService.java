@@ -1,4 +1,4 @@
-package com.examples.spring.demo.controllers;
+package com.examples.spring.demo.services;
 
 import java.util.List;
 
@@ -13,6 +13,14 @@ public class EmployeeService {
 	}
 	
 	public Employee getEmployeeById(long id) {
+		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
+	}
+	
+	public Employee insertNewEmployee(Employee employee) {
+		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
+	}
+
+	public Employee updateEmployeeById(long id, Employee employee) {
 		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
 	}
 

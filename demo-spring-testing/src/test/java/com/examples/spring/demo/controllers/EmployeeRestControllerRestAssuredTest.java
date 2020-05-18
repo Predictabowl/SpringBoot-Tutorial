@@ -12,8 +12,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.MediaType;
 
 import com.examples.spring.demo.model.Employee;
+import com.examples.spring.demo.services.EmployeeService;
+
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 
@@ -57,6 +60,44 @@ public class EmployeeRestControllerRestAssuredTest {
 					"salary", equalTo(1100));
 		
 		verify(employeeService,times(1)).getEmployeeById(1);
+	}
+	
+	@Test
+	public void test_postEmployee() {
+		Employee newEmployee = new Employee(null, "new Employee", 1500);
+		when(employeeService.insertNewEmployee(newEmployee))
+			.thenReturn(new Employee(1L, "new Employee", 1500));
+		
+		given()
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+			.body(newEmployee)
+		.when()
+			.post(REST_PATH+"/new")
+		.then()
+			.statusCode(200)
+			.assertThat()
+				.body("id",equalTo(1),
+					"name", equalTo("new Employee"),
+					"salary", equalTo(1500));
+	}
+	
+	@Test
+	public void test_updateEmployee_success() {
+		Employee replacement = new Employee(null, "replacement", 1200);
+		when(employeeService.updateEmployeeById(1L, replacement))
+			.thenReturn(new Employee(1L, "replacement", 1200));
+		
+		given()
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+			.body(replacement)
+		.when()
+			.put(REST_PATH+"/update/1")
+		.then()
+			.statusCode(200)
+			.assertThat()
+				.body("id",equalTo(1),
+					"name", equalTo("replacement"),
+					"salary", equalTo(1200));
 	}
 
 }
