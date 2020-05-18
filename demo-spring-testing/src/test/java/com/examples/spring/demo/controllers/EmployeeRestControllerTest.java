@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.ArgumentMatchers.anyLong;
 
 import java.util.Arrays;
 
@@ -55,5 +56,28 @@ public class EmployeeRestControllerTest {
 			.andExpect(jsonPath("$[1].name", is("second")))
 			.andExpect(jsonPath("$[1].salary", is(2000)));
 	}
+	
+	@Test
+	public void test_oneEmployee_found() throws Exception {
+		when(employeeService.getEmployeeById(anyLong()))
+			.thenReturn(new Employee(1L, "first", 1250));
+		
+		this.mvc.perform(get(API_EMPLOYEES+"/1").accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.id", is(1)))
+			.andExpect(jsonPath("$.name", is("first")))
+			.andExpect(jsonPath("$.salary", is(1250)));
+	}
+	
+	@Test
+	public void test_oneEmployee_not_found() throws Exception{
+		when(employeeService.getEmployeeById(anyLong()))
+			.thenReturn(null);
+		
+		this.mvc.perform(get(API_EMPLOYEES+"/2").accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().string(""));
+	}
+	
 
 }

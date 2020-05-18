@@ -11,5 +11,9 @@ public class EmployeeService {
 	public List<Employee> getAllEmployees() {
 		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
 	}
+	
+	public Employee getEmployeeById(long id) {
+		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
+	}
 
 }
