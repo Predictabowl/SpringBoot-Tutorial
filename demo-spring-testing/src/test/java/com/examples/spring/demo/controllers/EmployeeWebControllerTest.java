@@ -2,6 +2,7 @@ package com.examples.spring.demo.controllers;
 
 
 
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -9,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -45,14 +47,46 @@ public class EmployeeWebControllerTest {
 	}
 	
 	@Test
-	public void test_HomeView_show_employees() throws Exception {
+	public void test_homeView_show_employees() throws Exception {
 		List<Employee> employees = Arrays.asList(new Employee(1L, "Mario", 1000));
 		
 		when(employeeService.getAllEmployees()).thenReturn(employees);
 		
 		mvc.perform(get("/"))
 			.andExpect(view().name("index"))
-			.andExpect(model().attribute("employees", employees));
+			.andExpect(model().attribute("employees", employees))
+			.andExpect(model().attribute("message", ""));
+	}
+	
+	@Test
+	public void test_homeView_when_there_isnt_any_employee() throws Exception {
+		when(employeeService.getAllEmployees()).thenReturn(Collections.emptyList());
+		
+		mvc.perform(get("/"))
+			.andExpect(view().name("index"))
+			.andExpect(model().attribute("employees", Collections.emptyList()))
+			.andExpect(model().attribute("message", "There are no employees"));
 	}
 
+	@Test
+	public void test_editEmployee_success() throws Exception {
+		Employee employee = new Employee(1L,"Mario",1000);
+		
+		when(employeeService.getEmployeeById(1L)).thenReturn(employee);
+		
+		mvc.perform(get("/edit/1"))
+			.andExpect(view().name("edit"))
+			.andExpect(model().attribute("employee", employee))
+			.andExpect(model().attribute("message", ""));
+	}
+	
+	@Test
+	public void test_editEmployee_not_found() throws Exception {
+		when(employeeService.getEmployeeById(1L)).thenReturn(null);
+		
+		mvc.perform(get("/edit/1"))
+			.andExpect(view().name("edit"))
+			.andExpect(model().attribute("employee", nullValue()))
+			.andExpect(model().attribute("message", "No employee found with id: 1"));
+	}
 }
