@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Test;
@@ -14,10 +15,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.examples.spring.demo.model.Employee;
 import com.examples.spring.demo.services.EmployeeService;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTable;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = EmployeeWebController.class)
@@ -49,4 +52,24 @@ public class EmployeeWebControllerHtmlUnitTest {
 		assertThat(page.getBody().getTextContent()).contains("There are no employees");
 		
 	} 
+	
+	@Test
+	public void test_homePage_with_Employees_should_show_them_in_table() throws Exception{
+		when(employeeService.getAllEmployees()).thenReturn(Arrays.asList(
+				new Employee(1L, "Mario", 1000),
+				new Employee(2L, "Luigi", 1500)));
+		
+		HtmlPage page = webClient.getPage("/");
+		HtmlTable table = page.getHtmlElementById("employee_table");
+				
+		assertThat(page.getBody().getTextContent()).doesNotContain("no employees");
+		assertThat(removeWindowsCR(table.asText())).isEqualTo(
+				"ID	Name	Salary\n"
+				+"1	Mario	1000\n"
+				+"2	Luigi	1500");
+	}
+	
+	private String removeWindowsCR(String s) {
+		return s.replaceAll("\r", "");
+	}
 }
