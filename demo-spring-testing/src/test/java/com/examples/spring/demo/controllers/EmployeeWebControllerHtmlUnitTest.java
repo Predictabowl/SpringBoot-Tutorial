@@ -1,9 +1,11 @@
 package com.examples.spring.demo.controllers;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Collections;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,4 +39,14 @@ public class EmployeeWebControllerHtmlUnitTest {
 		
 		assertThat(page.getTitleText()).isEqualTo("Employees");
 	}
+	
+	@Test
+	public void test_homePage_without_employees() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+		when(employeeService.getAllEmployees()).thenReturn(Collections.emptyList());
+		
+		HtmlPage page = webClient.getPage("/");
+		
+		assertThat(page.getBody().getTextContent()).contains("There are no employees");
+		
+	} 
 }
