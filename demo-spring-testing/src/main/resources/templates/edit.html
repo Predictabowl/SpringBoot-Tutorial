@@ -6,6 +6,17 @@
 </head>
 <body>
 	<h1>Edit Employee</h1>
-	<span th:text="${message}"/>
+	<div>
+		<span th:text="${message}" />
+	</div>
+	
+	<div th:if="${message.empty}">
+		<form name="employee_form" action="#" th:action="@{/save}" th:object="${employee}" method="post">
+			<p>	Name: <input type="text" th:field="*{name}"/></p> 
+			<p> Salary: <input type="text" th:field="*{salary}"/></p>
+			<button name="btn_submit" type="submit">Save</button>
+			<input type="hidden" th:field="*{id}"/>
+		</form>
+	</div>
 </body>
 </html>

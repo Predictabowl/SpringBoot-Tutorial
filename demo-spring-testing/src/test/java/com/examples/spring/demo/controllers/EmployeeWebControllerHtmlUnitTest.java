@@ -1,7 +1,10 @@
 package com.examples.spring.demo.controllers;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import static org.mockito.ArgumentMatchers.*;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,6 +22,7 @@ import com.examples.spring.demo.model.Employee;
 import com.examples.spring.demo.services.EmployeeService;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 
@@ -77,6 +81,24 @@ public class EmployeeWebControllerHtmlUnitTest {
 		
 		assertThat(page.getTitleText()).isEqualTo("Edit Employee");
 		assertThat(page.getBody().getTextContent()).contains("No employee found with id: 1");
+	}
+	
+	@Test
+	public void test_edit_existing_employee() throws Exception{
+		when(employeeService.getEmployeeById(anyLong()))
+			.thenReturn(new Employee(1L, "Mario", 1500));
+		
+		HtmlPage page = this.webClient.getPage("/edit/1");
+		
+		// Get the form
+		final HtmlForm form = page.getFormByName("employee_form");
+		// check form's fields current value, then change them
+		form.getInputByValue("Mario").setValueAttribute("Carlo");
+		form.getInputByValue("1500").setValueAttribute("1000");
+		//submit the form
+		form.getButtonByName("btn_submit").click();
+		
+		verify(employeeService).updateEmployeeById(1L, new Employee(1L, "Carlo", 1000L));
 	}
 	
 	private String removeWindowsCR(String s) {
