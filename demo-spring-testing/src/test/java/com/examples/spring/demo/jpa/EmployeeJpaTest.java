@@ -28,6 +28,7 @@ public class EmployeeJpaTest {
 		assertThat(employee.getId()).isNotNull();
 		assertThat(employee.getId()).isGreaterThan(0);
 		
+		// what does this logger does exactly? where is the output?
 		LoggerFactory.getLogger(EmployeeJpaTest.class).info("Saved employee: "+employee.toString());
 	}
 }
