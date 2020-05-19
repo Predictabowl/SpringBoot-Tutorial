@@ -14,6 +14,7 @@ import com.examples.spring.demo.services.EmployeeService;
 @Controller
 public class EmployeeWebController {
 	
+	private static final String MESSAGE_ATTRIBUTE = "message";
 	@Autowired
 	private EmployeeService employeeService;
 
@@ -26,7 +27,7 @@ public class EmployeeWebController {
 			message = "There are no employees";
 		else
 			message = "";
-		model.addAttribute("message",message);
+		model.addAttribute(MESSAGE_ATTRIBUTE,message);
 		return "index";
 	}
 	
@@ -39,8 +40,15 @@ public class EmployeeWebController {
 			message = "No employee found with id: "+id;
 		else
 			message = "";
-		model.addAttribute("message",message);
+		model.addAttribute(MESSAGE_ATTRIBUTE,message);
 		
+		return "edit";
+	}
+	
+	@GetMapping("/new")
+	public String newEmployee(Model model) {
+		model.addAttribute("employee",new Employee());
+		model.addAttribute(MESSAGE_ATTRIBUTE,"");
 		return "edit";
 	}
 		
