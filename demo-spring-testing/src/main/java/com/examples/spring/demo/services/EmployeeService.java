@@ -16,7 +16,11 @@ public class EmployeeService {
 	}
 
 	public Employee getEmployeeById(long id) {
-		return null;
+		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
+	}
+
+	public Employee insertNewEmployee(Employee employee) {
+		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
 	}
 
 }

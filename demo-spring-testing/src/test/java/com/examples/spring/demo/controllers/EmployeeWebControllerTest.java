@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -100,5 +101,13 @@ public class EmployeeWebControllerTest {
 			.andExpect(model().attribute("message", ""));
 		
 		verifyZeroInteractions(employeeService);
+	}
+	
+	@Test
+	public void test_PostEmployee_without_it_should_insert_new_one() throws Exception {
+		mvc.perform(post("/save").param("name", "Luigi").param("salary", "1250"))
+			.andExpect(view().name("redirect:/"));//this will go to the main page
+		
+		verify(employeeService).insertNewEmployee(new Employee(null, "Luigi", 1250L));
 	}
 }
