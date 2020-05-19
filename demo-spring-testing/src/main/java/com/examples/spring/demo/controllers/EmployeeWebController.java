@@ -55,7 +55,10 @@ public class EmployeeWebController {
 	
 	@PostMapping("/save")
 	public String saveEmployee(Employee employee) {
-		employeeService.insertNewEmployee(employee);
+		if(employee.getId() == null)
+			employeeService.insertNewEmployee(employee);
+		else
+			employeeService.updateEmployeeById(employee.getId(),employee);
 		return "redirect:/";
 	}
 		

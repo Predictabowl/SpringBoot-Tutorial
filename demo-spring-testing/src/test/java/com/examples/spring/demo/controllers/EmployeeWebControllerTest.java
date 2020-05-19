@@ -4,6 +4,7 @@ package com.examples.spring.demo.controllers;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -109,5 +110,18 @@ public class EmployeeWebControllerTest {
 			.andExpect(view().name("redirect:/"));//this will go to the main page
 		
 		verify(employeeService).insertNewEmployee(new Employee(null, "Luigi", 1250L));
+		verifyNoMoreInteractions(employeeService);
+	}
+	
+	@Test
+	public void test_PostEmployee_with_id_should_edit() throws Exception {
+		mvc.perform(post("/save")
+				.param("id", "1")
+				.param("name", "Carlo")
+				.param("salary", "1250"))
+			.andExpect(view().name("redirect:/"));
+		
+		verify(employeeService).updateEmployeeById(1L, new Employee(1L,"Carlo",1250L));
+		verifyNoMoreInteractions(employeeService);
 	}
 }
