@@ -14,4 +14,4 @@ cache:
       - $HOME/.sonar/cache
 
 script:
-   - mvn -f demo-spring-testing/pom.xml clean verify -jacoco
+   - mvn -f demo-spring-testing/pom.xml clean verify -Pjacoco
