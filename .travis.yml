@@ -1,8 +1,13 @@
+dist: bionic
 language: java
-
 jdk: openjdk8
      
 install: true
+
+addons:
+   sonarcloud:
+      organization: "predictabowl"
+      token: $SONAR_TOKEN
 
 cache:
    directories:
@@ -10,4 +15,4 @@ cache:
       - $HOME/.sonar/cache 
 
 script:
-   - mvn -f demo-spring-testing/pom.xml clean verify -Pjacoco coveralls:report
+   - mvn -f demo-spring-testing/pom.xml clean verify sonar:sonar
