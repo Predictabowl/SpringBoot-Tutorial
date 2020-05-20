@@ -69,8 +69,10 @@ public class EmployeeWebControllerHtmlUnitTest {
 		assertThat(page.getBody().getTextContent()).doesNotContain("no employees");
 		assertThat(removeWindowsCR(table.asText())).isEqualTo(
 				"ID	Name	Salary\n"
-				+"1	Mario	1000\n"
-				+"2	Luigi	1500");
+				+"1	Mario	1000	Edit\n"
+				+"2	Luigi	1500	Edit");
+		page.getAnchorByHref("/edit/1");
+		page.getAnchorByHref("/edit/2");
 	}
 	
 	@Test
@@ -111,6 +113,14 @@ public class EmployeeWebControllerHtmlUnitTest {
 		form.getButtonByName("btn_submit").click();
 		
 		verify(employeeService).insertNewEmployee(new Employee(null, "new employee", 2000L));
+	}
+	
+	@Test
+	public void test_homePage_link_to_edit_new_employee() throws Exception{
+		HtmlPage page = webClient.getPage("/");
+		
+		assertThat(page.getAnchorByName("NewEmployeeLink").getHrefAttribute())
+			.isEqualTo("/new");
 	}
 	
 	private String removeWindowsCR(String s) {
