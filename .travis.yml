@@ -2,11 +2,16 @@ language: java
 
 jdk: openjdk8
 
+addons:
+   sonarcloud:
+      organization: predictabowl
+
 install: true
 
 cache:
    directories:
       - $HOME/.m2
+      - $HOME/.sonar/cache
 
 script:
-   - mvn -f demo-spring-testing/pom.xml verify
+   - mvn -f demo-spring-testing/pom.xml clean verify -jacoco
