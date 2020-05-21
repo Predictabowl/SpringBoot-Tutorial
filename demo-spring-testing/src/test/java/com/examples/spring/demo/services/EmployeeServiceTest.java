@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.examples.spring.demo.model.Employee;
-import com.examples.spring.demo.repository.EmployeeRepository;
+import com.examples.spring.demo.repositories.EmployeeRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmployeeServiceTest {

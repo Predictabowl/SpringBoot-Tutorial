@@ -3,7 +3,7 @@ package com.examples.spring.demo.services;
 import java.util.List;
 
 import com.examples.spring.demo.model.Employee;
-import com.examples.spring.demo.repository.EmployeeRepository;
+import com.examples.spring.demo.repositories.EmployeeRepository;
 
 public class EmployeeService {
 

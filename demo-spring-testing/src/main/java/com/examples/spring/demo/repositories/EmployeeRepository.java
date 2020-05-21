@@ -1,4 +1,4 @@
-package com.examples.spring.demo.repository;
+package com.examples.spring.demo.repositories;
 
 import java.util.List;
 import java.util.Optional;
