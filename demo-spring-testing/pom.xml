@@ -69,6 +69,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- <executions> <execution> <id>pre-integration-test</id> <goals> <goal>start</goal> 
+					</goals> </execution> <execution> <id>post-integration-test</id> <goals> 
+					<goal>stop</goal> </goals> </execution> </executions> -->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -116,7 +119,7 @@
 				</executions>
 			</plugin>
 		</plugins>
-		
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -146,13 +149,13 @@
 				</plugin>
 				<plugin>
 					<groupId>org.eluder.coveralls</groupId>
-    				<artifactId>coveralls-maven-plugin</artifactId>
-    				<version>4.3.0</version>
+					<artifactId>coveralls-maven-plugin</artifactId>
+					<version>4.3.0</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-	
+
 	<profiles>
 		<profile>
 			<id>jacoco</id>
