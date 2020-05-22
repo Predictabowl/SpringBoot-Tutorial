@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Employees</title>
+</head>
+<body>
+	<div th:if="${employees.empty}">
+		<!-- IF -->
+		<div>There are no employees</div>
+	</div>
+	<div th:unless="${employees.empty}">
+		<!-- ELSE -->
+		<table id="employee_table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Salary</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="employee : ${employees}">
+					<td th:text="${employee.id}"/>
+					<td th:text="${employee.name}"/>
+					<td th:text="${employee.salary}"/>
+					<td><a th:href="@{'/edit/'+${employee.id}}">Edit</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<a name="NewEmployeeLink" th:href="@{/new}">New Employee</a>
+	</div>
+</body>
+</html>
