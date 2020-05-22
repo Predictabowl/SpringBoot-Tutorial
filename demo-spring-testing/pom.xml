@@ -17,6 +17,10 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<sonar.coverage.exclusions>
+			**/DemoSpringTestingApplication.*,
+			**/model/*.*
+		</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
@@ -53,6 +57,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>spring-mock-mvc</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -60,6 +69,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- <executions> <execution> <id>pre-integration-test</id> <goals> <goal>start</goal> 
+					</goals> </execution> <execution> <id>post-integration-test</id> <goals> 
+					<goal>stop</goal> </goals> </execution> </executions> -->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -100,14 +112,14 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>/src/it/java</source>
+								<source>src/it/java</source>
 							</sources>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
-		
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -119,6 +131,12 @@
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
 					<version>0.8.5</version>
+					<configuration>
+						<excludes>
+							<exclude>**/DemoSpringTestingApplication.*</exclude>
+							<exclude>**/model/*.*</exclude>
+						</excludes>
+					</configuration>
 					<executions>
 						<execution>
 							<id>prepare-agent</id>
@@ -131,13 +149,13 @@
 				</plugin>
 				<plugin>
 					<groupId>org.eluder.coveralls</groupId>
-    				<artifactId>coveralls-maven-plugin</artifactId>
-    				<version>4.3.0</version>
+					<artifactId>coveralls-maven-plugin</artifactId>
+					<version>4.3.0</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-	
+
 	<profiles>
 		<profile>
 			<id>jacoco</id>
