@@ -12,8 +12,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 
 import com.examples.spring.demo.model.Employee;
+import com.examples.spring.demo.model.EmployeeDTO;
 import com.examples.spring.demo.repositories.EmployeeRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -58,10 +60,10 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void test_insertNewEmployee_sets_id_to_null_and_returns_employee() {
-		Employee toSave = spy(new Employee(99L, "", 0));
+		EmployeeDTO toSave = spy(new EmployeeDTO(99L, "", 0));
 		Employee saved = new Employee(1L, "saved guy", 1000);
 		
-		when(employeeRepository.save(toSave)).thenReturn(saved);
+		when(employeeRepository.save(new Employee(null, "", 0))).thenReturn(saved);
 		
 		Employee returned = employeeService.insertNewEmployee(toSave);
 		
@@ -69,12 +71,13 @@ public class EmployeeServiceTest {
 		
 		InOrder inOrder = inOrder(toSave, employeeRepository);
 		inOrder.verify(toSave).setId(null);
-		inOrder.verify(employeeRepository).save(toSave);
+		inOrder.verify(toSave).mapToEmployee();
+		inOrder.verify(employeeRepository).save(new Employee(null, "", 0));
 	}
 	
 	@Test
 	public void test_updateEmployeeById_sets_the_id_and_return_employee() {
-		Employee replacement = spy(new Employee(null, "new guy", 0));
+		EmployeeDTO replacement = spy(new EmployeeDTO(null, "new guy", 0));
 		Employee replaced = new Employee(1L, "old guy", 1000);
 		
 		when(employeeRepository.save(any(Employee.class))).thenReturn(replaced);
@@ -85,7 +88,8 @@ public class EmployeeServiceTest {
 		
 		InOrder inOrder = inOrder(replacement, employeeRepository);
 		inOrder.verify(replacement).setId(1L);
-		inOrder.verify(employeeRepository).save(replacement);
+		inOrder.verify(replacement).mapToEmployee();
+		inOrder.verify(employeeRepository).save(new Employee(1L, "new guy", 0));
 	}
 
 }

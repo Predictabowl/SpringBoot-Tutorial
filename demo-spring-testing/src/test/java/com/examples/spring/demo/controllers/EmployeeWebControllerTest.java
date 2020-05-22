@@ -27,6 +27,7 @@ import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.examples.spring.demo.model.Employee;
+import com.examples.spring.demo.model.EmployeeDTO;
 import com.examples.spring.demo.services.EmployeeService;
 
 @RunWith(SpringRunner.class)
@@ -109,7 +110,7 @@ public class EmployeeWebControllerTest {
 		mvc.perform(post("/save").param("name", "Luigi").param("salary", "1250"))
 			.andExpect(view().name("redirect:/"));//this will go to the main page
 		
-		verify(employeeService).insertNewEmployee(new Employee(null, "Luigi", 1250L));
+		verify(employeeService).insertNewEmployee(new EmployeeDTO(null, "Luigi", 1250L));
 		verifyNoMoreInteractions(employeeService);
 	}
 	
@@ -121,7 +122,7 @@ public class EmployeeWebControllerTest {
 				.param("salary", "1250"))
 			.andExpect(view().name("redirect:/"));
 		
-		verify(employeeService).updateEmployeeById(1L, new Employee(1L,"Carlo",1250L));
+		verify(employeeService).updateEmployeeById(1L, new EmployeeDTO(1L,"Carlo",1250L));
 		verifyNoMoreInteractions(employeeService);
 	}
 }

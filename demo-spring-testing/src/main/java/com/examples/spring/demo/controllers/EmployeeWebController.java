@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.examples.spring.demo.model.Employee;
+import com.examples.spring.demo.model.EmployeeDTO;
 import com.examples.spring.demo.services.EmployeeService;
 
 @Controller
@@ -54,7 +55,7 @@ public class EmployeeWebController {
 	}
 	
 	@PostMapping("/save")
-	public String saveEmployee(Employee employee) {
+	public String saveEmployee(EmployeeDTO employee) {
 		if(employee.getId() == null)
 			employeeService.insertNewEmployee(employee);
 		else

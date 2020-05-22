@@ -19,6 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.examples.spring.demo.model.Employee;
+import com.examples.spring.demo.model.EmployeeDTO;
 import com.examples.spring.demo.services.EmployeeService;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -100,7 +101,7 @@ public class EmployeeWebControllerHtmlUnitTest {
 		//submit the form
 		form.getButtonByName("btn_submit").click();
 		
-		verify(employeeService).updateEmployeeById(1L, new Employee(1L, "Carlo", 1000L));
+		verify(employeeService).updateEmployeeById(1L, new EmployeeDTO(1L, "Carlo", 1000L));
 	}
 	
 	@Test
@@ -112,7 +113,7 @@ public class EmployeeWebControllerHtmlUnitTest {
 		form.getInputByName("salary").setValueAttribute("2000");
 		form.getButtonByName("btn_submit").click();
 		
-		verify(employeeService).insertNewEmployee(new Employee(null, "new employee", 2000L));
+		verify(employeeService).insertNewEmployee(new EmployeeDTO(null, "new employee", 2000L));
 	}
 	
 	@Test

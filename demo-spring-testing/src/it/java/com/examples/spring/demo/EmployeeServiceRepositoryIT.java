@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.examples.spring.demo.model.Employee;
+import com.examples.spring.demo.model.EmployeeDTO;
 import com.examples.spring.demo.repositories.EmployeeRepository;
 import com.examples.spring.demo.services.EmployeeService;
 
@@ -33,7 +34,7 @@ public class EmployeeServiceRepositoryIT {
 
 	@Test
 	public void test_service_should_insert_into_repository() {
-		Employee savedEmployee = employeeService.insertNewEmployee(new Employee(null, "Mario", 1000));
+		Employee savedEmployee = employeeService.insertNewEmployee(new EmployeeDTO(null, "Mario", 1000));
 		
 		assertThat(employeeRepository.findById(savedEmployee.getId())).isPresent();
 	}
@@ -43,7 +44,7 @@ public class EmployeeServiceRepositoryIT {
 		Employee savedEmployee = employeeRepository.save(new Employee(null, "Carlo", 1000));
 		
 		Employee modEmployee = employeeService.updateEmployeeById(
-				savedEmployee.getId(), new Employee(null, "Mario", 1250));
+				savedEmployee.getId(), new EmployeeDTO(null, "Mario", 1250));
 		
 		assertThat(employeeRepository.findById(savedEmployee.getId()).get())
 			.isEqualTo(modEmployee);
