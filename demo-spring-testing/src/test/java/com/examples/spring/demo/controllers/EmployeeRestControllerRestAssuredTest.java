@@ -15,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 
 import com.examples.spring.demo.model.Employee;
+import com.examples.spring.demo.model.EmployeeDTO;
 import com.examples.spring.demo.services.EmployeeService;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -64,13 +65,13 @@ public class EmployeeRestControllerRestAssuredTest {
 	
 	@Test
 	public void test_postEmployee() {
-		Employee newEmployee = new Employee(null, "new Employee", 1500);
-		when(employeeService.insertNewEmployee(newEmployee))
+		EmployeeDTO toSave = new EmployeeDTO(null, "new Employee", 1500);
+		when(employeeService.insertNewEmployee(toSave))
 			.thenReturn(new Employee(1L, "new Employee", 1500));
 		
 		given()
 			.contentType(MediaType.APPLICATION_JSON_VALUE)
-			.body(newEmployee)
+			.body(toSave)
 		.when()
 			.post(REST_PATH+"/new")
 		.then()
@@ -83,7 +84,7 @@ public class EmployeeRestControllerRestAssuredTest {
 	
 	@Test
 	public void test_updateEmployee_success() {
-		Employee replacement = new Employee(null, "replacement", 1200);
+		EmployeeDTO replacement = new EmployeeDTO(null, "replacement", 1200);
 		when(employeeService.updateEmployeeById(1L, replacement))
 			.thenReturn(new Employee(1L, "replacement", 1200));
 		
