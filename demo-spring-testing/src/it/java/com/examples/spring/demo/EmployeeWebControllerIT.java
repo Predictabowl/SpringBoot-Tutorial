@@ -33,7 +33,7 @@ public class EmployeeWebControllerIT extends RandomPortHtmlUnitDriver{
 		
 		assertThat(indexPage.getEmployeeTable().getText())
 			.contains(employee.getId().toString(),"test employee","1000","Edit");
-		assertThat(indexPage.getEditEmployeeLink(employee.getId()).getText()).isEqualTo("Edit");
+		assertThat(indexPage.getEditEmployeeLink(employee.getId().toString()).getText()).isEqualTo("Edit");
 	}
 	
 	@Test
