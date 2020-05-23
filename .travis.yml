@@ -18,7 +18,7 @@ services:
 install: true
 
 script:
-   - ./build
+   #- ./build
    
-   #- mvn -f demo-spring-testing/pom.xml clean verify -Pjacoco coveralls:report sonar:sonar -Dsonar.projectKey=Predictabowl_SpringBoot-Tutorial
+   - mvn -f demo-spring-testing/pom.xml clean verify -Pjacoco coveralls:report sonar:sonar -Dsonar.projectKey=Predictabowl_SpringBoot-Tutorial
    #- mvn -f demo-spring-testing/pom.xml verify -Pe2e-tests

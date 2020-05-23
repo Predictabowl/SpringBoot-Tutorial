@@ -2,9 +2,12 @@ package com.examples.spring.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,7 +18,10 @@ import com.examples.spring.demo.functionaltests.ChromeSeleniumDriver;
 import com.examples.spring.demo.pageobject.EditPage;
 import com.examples.spring.demo.pageobject.IndexPage;
 
+
 public class EmployeeWebControllerE2E extends ChromeSeleniumDriver{
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeWebControllerE2E.class);
 
 	@Test
 	public void test_homePage() {
@@ -77,6 +83,7 @@ public class EmployeeWebControllerE2E extends ChromeSeleniumDriver{
 		HttpEntity<String> entity = new HttpEntity<String>(body.toString(), headers);
 		ResponseEntity<String> answer = new RestTemplate().postForEntity(baseUrl+"/api/employees/new", entity, String.class);
 
+		LOGGER.debug("answer for POST: "+answer);
 		return new JSONObject(answer.getBody()).get("id").toString();
 	}
 }

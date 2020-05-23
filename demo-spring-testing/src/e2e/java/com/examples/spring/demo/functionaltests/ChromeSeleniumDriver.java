@@ -5,13 +5,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class ChromeSeleniumDriver {
 	
 	private static int port = Integer.parseInt(System.getProperty("server.port", "8080"));
-	protected WebDriver driver;
+	protected ChromeDriver driver;
 	protected String baseUrl;
 	
 	@BeforeClass
