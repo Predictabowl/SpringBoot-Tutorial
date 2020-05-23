@@ -14,5 +14,9 @@ cache:
       - $HOME/.m2
       - $HOME/.sonar/cache 
 
+services:
+   - xvfb
+
 script:
    - mvn -f demo-spring-testing/pom.xml clean verify -Pjacoco coveralls:report sonar:sonar -Dsonar.projectKey=Predictabowl_SpringBoot-Tutorial
+   - mvn -f demo-spring-testing/pom.xml verify -Pe2e-tests
