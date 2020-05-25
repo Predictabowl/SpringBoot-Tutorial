@@ -3,9 +3,7 @@ package com.examples.spring.demo.functionaltests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -17,6 +15,7 @@ public class ChromeSeleniumDriver {
 	
 	@BeforeClass
 	public static void setUpClass() {
+		
 		WebDriverManager.chromedriver().setup();
 	}
 	
