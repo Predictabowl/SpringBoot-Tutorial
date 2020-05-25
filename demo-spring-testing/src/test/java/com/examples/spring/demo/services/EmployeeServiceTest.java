@@ -1,7 +1,11 @@
 package com.examples.spring.demo.services;
 
-import static org.mockito.Mockito.*;
-import static org.assertj.core.api.Assertions.*; 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -12,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 
 import com.examples.spring.demo.model.Employee;
 import com.examples.spring.demo.model.EmployeeDTO;

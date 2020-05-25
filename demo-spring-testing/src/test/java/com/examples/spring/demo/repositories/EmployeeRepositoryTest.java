@@ -64,8 +64,8 @@ public class EmployeeRepositoryTest {
 	@Test
 	public void test_find_by_name_and_salary() {
 		Employee saved1 = entityManager.persistFlushFind(new Employee(null, "Tizio", 1000));
-		Employee saved2 = entityManager.persistFlushFind(new Employee(null, "Caio", 2000));
-		Employee saved3 = entityManager.persistFlushFind(new Employee(null, "Tizio", 3000));
+		entityManager.persistFlushFind(new Employee(null, "Caio", 2000));
+		entityManager.persistFlushFind(new Employee(null, "Tizio", 3000));
 		
 		Employee found = repository.findByNameAndSalary("Tizio",1000L);
 		
@@ -76,7 +76,7 @@ public class EmployeeRepositoryTest {
 	public void test_find_by_name_or_salary() {
 		Employee saved1 = entityManager.persistFlushFind(new Employee(null, "Tizio", 1000));
 		Employee saved2 = entityManager.persistFlushFind(new Employee(null, "Caio", 2000));
-		Employee saved3 = entityManager.persistFlushFind(new Employee(null, "Sempronio", 3000));
+		entityManager.persistFlushFind(new Employee(null, "Sempronio", 3000));
 		
 		List<Employee> found = repository.findByNameOrSalary("Tizio",2000L);
 		
@@ -87,7 +87,7 @@ public class EmployeeRepositoryTest {
 	public void test_findAll_employees_within_cap_salary() {
 		Employee saved1 = entityManager.persistFlushFind(new Employee(null, "Tizio", 1000));
 		Employee saved2 = entityManager.persistFlushFind(new Employee(null, "Caio", 2000));
-		Employee saved3 = entityManager.persistFlushFind(new Employee(null, "Sempronio", 3000));
+		entityManager.persistFlushFind(new Employee(null, "Sempronio", 3000));
 		
 		List<Employee> found = repository.findAllEmployeesWithinSalaryCap(2100L);
 		

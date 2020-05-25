@@ -1,0 +1,5 @@
+#!/bin/sh
+cd demo-spring-testing
+./mvnw clean verify -Pjacoco
+./mvnw verify -Pe2e-tests
+./mvnw coveralls:report sonar:sonar -Dsonar.projectKey=Predictabowl_SpringBoot-Tutorial
