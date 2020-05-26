@@ -6,13 +6,14 @@ import javax.persistence.Id;
 
 @Entity
 public class Employee {
-	
-	@Id @GeneratedValue
+
+	@Id
+	@GeneratedValue
 	private Long id;
-	
+
 	private String name;
 	private long salary;
-	
+
 	public Employee() {
 	}
 
@@ -68,16 +69,18 @@ public class Employee {
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
-			return false;
+		} else {
+			if (!id.equals(other.id))
+				return false;
+		}
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (salary != other.salary)
-			return false;
-		return true;
+		} else {
+			if (!name.equals(other.name))
+				return false;
+		}
+		return salary == other.salary;
 	}
 
 	@Override
@@ -85,5 +88,4 @@ public class Employee {
 		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
 	}
 
-	
 }
